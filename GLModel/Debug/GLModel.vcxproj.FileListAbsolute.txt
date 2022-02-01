@@ -1,0 +1,4 @@
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\ComputerAnimationTemplate2022\lib\GLModel.pdb
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\ComputerAnimationTemplate2022\GLModel\Debug\GLModel.pdb
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\lib\GLModel.pdb
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\GLModel\Debug\GLModel.pdb

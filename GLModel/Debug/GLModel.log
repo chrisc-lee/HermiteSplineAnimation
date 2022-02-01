@@ -1,0 +1,5 @@
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  texture.cpp
+  GLModel.cpp
+  Generating Code...
+  GLModel.vcxproj -> D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\GLModel\..\lib\GLModel.lib

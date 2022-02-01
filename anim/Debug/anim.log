@@ -1,0 +1,19 @@
+﻿cl : command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  SampleParticle.cpp
+  SampleGravitySimulator.cpp
+  ResourceManager.cpp
+  myScene.cpp
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\anim\myScene.cpp(168,7): warning C4101: 'success': unreferenced local variable
+  HermiteSplineSystem.cpp
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\anim\HermiteSplineSystem.cpp(68,46): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\anim\HermiteSplineSystem.cpp(68,52): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\anim\HermiteSplineSystem.cpp(68,58): warning C4838: conversion from 'double' to 'float' requires a narrowing conversion
+  HermiteSplineSimulator.cpp
+  GlobalResourceManager.cpp
+  BaseSystem.cpp
+  BaseSimulator.cpp
+  BaseObject.cpp
+  animTcl.cpp
+  anim.cpp
+  Generating Code...
+  anim.vcxproj -> D:\My Documents\University School Work\Applied Math and Comp Sci\EECS 4491\HermiteSplineAnimation\anim\../Build\anim.exe
