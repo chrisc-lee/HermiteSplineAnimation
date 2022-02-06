@@ -58,32 +58,32 @@ int HermiteSplineSimulator::step(double time)
 		m_target->getState(pos1);
 		m_previous->getState(pos2);
 
-		Vector r1;
-		setVector(r1, 1, 3, 0);
-		Vector r2;
-		setVector(r2, 1, 2, 0);
+		//Vector r1;
+		//setVector(r1, 1, 3, 0);
+		//Vector r2;
+		//setVector(r2, 1, 2, 0);
 
 
 		
 		// retrieve the system
-		sampleSystemRetrieval =
-			GlobalResourceManager::use()->getSystem(name);
+		//sampleSystemRetrieval =
+		//	GlobalResourceManager::use()->getSystem(name);
 
-		float x = f1(t) * pos2[0] + f2(t) * pos1[0] + f3(t) * r1[0] + f4(t) * r2[0];
-		float y = f1(t) * pos2[1] + f2(t) * pos1[1] + f3(t) * r1[1] + f4(t) * r2[1];
+		//float x = f1(t) * pos2[0] + f2(t) * pos1[0] + f3(t) * r1[0] + f4(t) * r2[0];
+		//float y = f1(t) * pos2[1] + f2(t) * pos1[1] + f3(t) * r1[1] + f4(t) * r2[1];
 		//glVertex2f(f1(t) * pos2[0] + f2(t) * pos1[0] + f3(t) * r1[0] + f4(t) * r2[0],
 		//	f1(t) * pos2[1] + f2(t) * pos1[1] + f3(t) * r1[1] + f4(t) * r2[1]);
-		double p[3] = { x, y, 0 };
-		sampleSystemRetrieval->setState(p);
-		GLubyte* PixelBuffer = new GLubyte[(float)GLUT_SCREEN_WIDTH * (float)GLUT_SCREEN_HEIGHT * 3];
-		PixelBuffer[curr_iter] = x;
-		PixelBuffer[curr_iter + 1] = y;
-		PixelBuffer[curr_iter + 2] = 0;
-		glBegin(GL_LINE_STRIP);
-		glVertex2f(pos2[0], pos2[1]);
-		glVertex2f(x, y);
-		glEnd();
-		glutSwapBuffers();
+		//double p[3] = { x, y, 0 };
+		//sampleSystemRetrieval->setState(p);
+		//GLubyte* PixelBuffer = new GLubyte[(float)GLUT_SCREEN_WIDTH * (float)GLUT_SCREEN_HEIGHT * 3];
+		//PixelBuffer[curr_iter] = x;
+		//PixelBuffer[curr_iter + 1] = y;
+		//PixelBuffer[curr_iter + 2] = 0;
+		//glBegin(GL_LINE_STRIP);
+		//glVertex2f(pos2[0], pos2[1]);
+		//glVertex2f(x, y);
+		//glEnd();
+		//glutSwapBuffers();
 		
 
 		curr_iter++;
@@ -96,16 +96,3 @@ int HermiteSplineSimulator::step(double time)
 
 }	// SampleGravitySimulator::step
 
-// blending functions for hermite curve
-float HermiteSplineSimulator::f1(float t) {
-	return 2 * t * t * t - 3 * t * t + 1;
-}
-float HermiteSplineSimulator::f2(float t) {
-	return -2 * t * t * t + 3 * t * t;
-}
-float HermiteSplineSimulator::f3(float t) {
-	return t * t * t - 2 * t * t + t;
-}
-float HermiteSplineSimulator::f4(float t) {
-	return t * t * t - t * t;
-}

@@ -15,7 +15,7 @@
 #include "animTcl.h"
 #include <GLmodel/GLmodel.h>
 #include <vector>
-
+#include <fstream>
 #include "shared/opengl.h"
 
 // a sample system
@@ -48,11 +48,26 @@ protected:
 	float m_sy;
 	float m_sz;
 
+	float f1(float t);
+	float f2(float t);
+	float f3(float t);
+	float f4(float t);
+
+	float getArcLength(float t);
+	void calculateArcLengthTable();
+
+	double* findTangentStartPoint(double* y0, double* y1, double* y2);
+	double* findTangentEndPoint(double* y0, double* y1, double* y2);
+	double* findTangentMidPoint(double* y0, double* y1);
+
 	Vector m_pos;
 	Vector p_pos;
 	std::vector<HermiteSplineSystem::vert_pos> vertices;
+	std::vector<float> arc_length_table;
 
 	GLMmodel m_model;
 
+	bool cat_rom;
+	
 };
 #endif

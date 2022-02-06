@@ -38,6 +38,9 @@ int g_testVariable = 10;
 std::list <HermiteSplineSystem*> control_points;
 std::list <HermiteSplineSimulator*> simulators;
 
+HermiteSplineSystem* hermite;
+
+
 SETVAR myScriptVariables[] = {
 	"testVariable", TCL_LINK_INT, (char *) &g_testVariable,
 	"",0,(char *) NULL
@@ -68,66 +71,24 @@ void myMouse(int button, int state, int x, int y)
 		strcpy(char_type, s.c_str());
 		
 		
-		double p[3] = {normalX, normalY, 0 };
+		double p[6] = {normalX, normalY, 0, 1, 1, 0};
 
 		double q[3] = { 6.0, 6.0, 0.0 };
 
 		// register a system
-		bool success;
-		int num_systems = GlobalResourceManager::use()->getNumberOfSystems();
-		s = std::to_string(control_points.size());
-
-		char_type = new char[s.length()];
-		strcpy(char_type, s.c_str());
-		//animTcl::OutputMessage(char_type);
-		animTcl::OutputMessage(char_type);
-		std::string name = "hermite";
-		name.append(char_type);
-		HermiteSplineSystem* hermite = new HermiteSplineSystem(name);
-		HermiteSplineSystem* hermite_prev;
-		if (control_points.size() > 0) {
-			hermite_prev = control_points.back();
-		}
-		
-		success = GlobalResourceManager::use()->addSystem(hermite, true);
-		control_points.push_back(hermite);
-
-		// make sure it was registered successfully
-		assert(success);
+		bool success;	
 
 		BaseSystem* sampleSystemRetrieval;
 
 		// retrieve the system
 		sampleSystemRetrieval =
-			GlobalResourceManager::use()->getSystem(name);
+			GlobalResourceManager::use()->getSystem("hermite");
 
 		sampleSystemRetrieval->setState(p);
 		sampleSystemRetrieval->getState(p);
 
 		// make sure you got it
 		assert(sampleSystemRetrieval);
-
-		if (control_points.size() > 1) {
-			int num_sims = simulators.size();
-			s = std::to_string(num_sims * 10);
-
-			char_type = new char[s.length()];
-			strcpy(char_type, s.c_str());
-			std::string name = "hermiteSplineSim";
-			name.append(char_type);
-			animTcl::OutputMessage(char_type);
-			assert(control_points.back() != nullptr);
-			assert(hermite_prev != nullptr);
-			HermiteSplineSimulator* hermiteSplineSimulator = new HermiteSplineSimulator(name, control_points.back(), hermite_prev);
-			// register a simulator
-			//assert(hermiteSplineSimulator == nullptr);
-			success = GlobalResourceManager::use()->addSimulator(hermiteSplineSimulator,true);
-			animTcl::OutputMessage(
-				"Added Simulator\n");
-			// make sure it was registered successfully
-			assert( success );
-			simulators.push_back(hermiteSplineSimulator);
-		}
 
 	}
 	if( button == GLUT_LEFT_BUTTON && state == GLUT_UP )
@@ -165,7 +126,12 @@ void MakeScene(void)
 
 	/* SAMPLE SCENE */
 
-	bool success;
+	//bool success;
+	//HermiteSplineSystem* hermite = new HermiteSplineSystem("hermite");
+	//success = GlobalResourceManager::use()->addSystem(hermite, true);
+
+	// make sure it was registered successfully
+	//assert(success);
 
 	// register a system
 	//SampleParticle* sphere1 = new SampleParticle( "sphere1" );
@@ -226,6 +192,19 @@ void myIdleCB(void)
 void myKey(unsigned char key, int x, int y)
 {
 	 animTcl::OutputMessage("My key callback received a key press event\n");
+	 if (key == 'r') {
+		 animTcl::OutputMessage("R pressed\n");
+		 
+		 
+		//retrieve the system	
+		if (GlobalResourceManager::use()->getSystem("hermite")) {
+			assert(GlobalResourceManager::use()->getSystem("hermite"));
+			animTcl::OutputMessage("Reset hermite pressed\n");
+			char* string = "reset";
+			char** string_list = &string;
+			GlobalResourceManager::use()->getSystem("hermite")->command(1, string_list);
+		 }
+	 }
 	return;
 
 }	// myKey
@@ -238,6 +217,30 @@ static int testGlobalCommand(ClientData clientData, Tcl_Interp *interp, int argc
 
 }	// testGlobalCommand
 
+static int intializePart1(ClientData clientData, Tcl_Interp* interp, int argc, myCONST_SPEC char** argv)
+{
+	bool success;
+	HermiteSplineSystem* hermite = new HermiteSplineSystem("hermite");
+	success = GlobalResourceManager::use()->addSystem(hermite, true);
+	// make sure it was registered successfully
+	assert(success);
+	animTcl::OutputMessage("Part 1 intialized.");
+	return TCL_OK;
+
+}	// testGlobalCommand
+
+static int intializePart2(ClientData clientData, Tcl_Interp* interp, int argc, myCONST_SPEC char** argv)
+{
+	bool success;
+	//HermiteSplineSystem* hermite = new HermiteSplineSystem("hermite");
+	//success = GlobalResourceManager::use()->addSystem(hermite, true);
+	// make sure it was registered successfully
+	//assert(success);
+	animTcl::OutputMessage("Part 2 intialized.");
+	return TCL_OK;
+
+}	// testGlobalCommand
+
 void mySetScriptCommands(Tcl_Interp *interp)
 {
 
@@ -246,5 +249,11 @@ void mySetScriptCommands(Tcl_Interp *interp)
 
 	Tcl_CreateCommand(interp, "test", testGlobalCommand, (ClientData) NULL,
 					  (Tcl_CmdDeleteProc *)	NULL);
+
+	Tcl_CreateCommand(interp, "part1", intializePart1, (ClientData)NULL,
+		(Tcl_CmdDeleteProc*)NULL);
+
+	Tcl_CreateCommand(interp, "part2", intializePart2, (ClientData)NULL,
+		(Tcl_CmdDeleteProc*)NULL);
 
 }	// mySetScriptCommands
