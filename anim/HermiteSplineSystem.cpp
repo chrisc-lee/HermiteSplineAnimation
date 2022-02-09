@@ -125,7 +125,7 @@ void HermiteSplineSystem::getState(double* p)
 
 void HermiteSplineSystem::setState(double* p)
 {
-	if (vertices.size() + 1 > 40) {
+	if ((vertices.size() / 2) + 1 > 40) {
 		animTcl::OutputMessage("Too many control points. Maximum 40 control points permitted.");
 		return;
 	}
